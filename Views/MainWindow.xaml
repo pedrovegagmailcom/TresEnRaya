@@ -29,16 +29,15 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-            <Label  Grid.Row="0" Grid.Column="0" Content="{Binding C1}" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-            <Label  Grid.Row="0" Grid.Column="1" Content="{Binding C2}" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-            <Label  Grid.Row="0" Grid.Column="2" Content="{Binding C3}" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-            <Label  Grid.Row="1" Grid.Column="0" Content="{Binding C4}" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-            <Label  Grid.Row="1" Grid.Column="1" Content="{Binding C5}" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-            <Label  Grid.Row="1" Grid.Column="2" Content="{Binding C6}" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-            <Label  Grid.Row="2" Grid.Column="0" Content="{Binding C7}" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-            <Label  Grid.Row="2" Grid.Column="1" Content="{Binding C8}" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-            <Label  Grid.Row="2" Grid.Column="2" Content="{Binding C9}" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-
+            <Button Grid.Row="0" Grid.Column="0" Command="{Binding C1Command}"  Content="{Binding C1}" FontSize="60" Background="Transparent"></Button>
+            <Button Grid.Row="0" Grid.Column="1" Command="{Binding C2Command}"  Content="{Binding C2}" FontSize="60" Background="Transparent"></Button>
+            <Button Grid.Row="0" Grid.Column="2" Command="{Binding C3Command}"  Content="{Binding C3}" FontSize="60" Background="Transparent"></Button>
+            <Button Grid.Row="1" Grid.Column="0" Command="{Binding C4Command}"  Content="{Binding C4}" FontSize="60" Background="Transparent"></Button>
+            <Button Grid.Row="1" Grid.Column="1" Command="{Binding C5Command}"  Content="{Binding C5}" FontSize="60" Background="Transparent"></Button>
+            <Button Grid.Row="1" Grid.Column="2" Command="{Binding C6Command}"  Content="{Binding C6}" FontSize="60" Background="Transparent"></Button>
+            <Button Grid.Row="2" Grid.Column="0" Command="{Binding C7Command}"  Content="{Binding C7}" FontSize="60" Background="Transparent"></Button>
+            <Button Grid.Row="2" Grid.Column="1" Command="{Binding C8Command}"  Content="{Binding C8}" FontSize="60" Background="Transparent"></Button>
+            <Button Grid.Row="2" Grid.Column="2" Command="{Binding C9Command}"  Content="{Binding C9}" FontSize="60" Background="Transparent"></Button>
         </Grid>
     </Grid>
 </Window>
