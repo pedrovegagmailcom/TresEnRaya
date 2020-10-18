@@ -1,0 +1,44 @@
+﻿<Window x:Class="TresEnRaya.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TresEnRaya"
+        mc:Ignorable="d"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True" 
+        Title="MainWindow" Height="450" Width="800">
+    <Grid ShowGridLines ="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="1" Orientation="Vertical">
+            <Label Content="{Binding NumeroNodos}"></Label>
+        </StackPanel>
+        
+    <Grid ShowGridLines ="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+            <Label  Grid.Row="0" Grid.Column="0" Content="{Binding C1}" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+            <Label  Grid.Row="0" Grid.Column="1" Content="{Binding C2}" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+            <Label  Grid.Row="0" Grid.Column="2" Content="{Binding C3}" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+            <Label  Grid.Row="1" Grid.Column="0" Content="{Binding C4}" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+            <Label  Grid.Row="1" Grid.Column="1" Content="{Binding C5}" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+            <Label  Grid.Row="1" Grid.Column="2" Content="{Binding C6}" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+            <Label  Grid.Row="2" Grid.Column="0" Content="{Binding C7}" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+            <Label  Grid.Row="2" Grid.Column="1" Content="{Binding C8}" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+            <Label  Grid.Row="2" Grid.Column="2" Content="{Binding C9}" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+
+        </Grid>
+    </Grid>
+</Window>
