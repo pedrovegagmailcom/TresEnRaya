@@ -16,6 +16,8 @@
 
         <StackPanel Grid.Column="1" Orientation="Vertical">
             <Label Content="{Binding NumeroNodos}"></Label>
+            <Button Command="{Binding NewCommand}"  Content="reset" FontSize="20" Height="auto"></Button>
+
         </StackPanel>
         
     <Grid ShowGridLines ="True">

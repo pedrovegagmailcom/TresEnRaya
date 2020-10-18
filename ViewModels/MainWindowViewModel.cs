@@ -10,13 +10,19 @@ using System.Threading.Tasks;
 
 namespace TresEnRaya.ViewModels
 {
+    static class TipoJugador
+    {
+        public const int Humano = 1;
+        public const int IA = 2;
 
+    } 
     class NodoJuego
     {
         public NodoJuego nodoPadre = null;
         public List<NodoJuego> nodos;
         public int[] estado = new int[10] { -1, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         public int nivel;
+        public int valor = 0;
         
 
         public NodoJuego(NodoJuego nPadre)
@@ -42,7 +48,7 @@ namespace TresEnRaya.ViewModels
             new int[]   { 3, 6, 9 } };
         int _numeroNodos = 0;
         int Turno = 0;
-        int turno = 1;
+        
         public int NumeroNodos { get { return _numeroNodos; } set { SetProperty(ref _numeroNodos, value); } }
 
         #region Celdas
@@ -59,6 +65,7 @@ namespace TresEnRaya.ViewModels
         #endregion
 
         #region Botones
+        public DelegateCommand NewCommand { get; set; }
         public DelegateCommand C1Command { get; set; }
         public DelegateCommand C2Command { get; set; }
         public DelegateCommand C3Command { get; set; }
@@ -72,49 +79,49 @@ namespace TresEnRaya.ViewModels
         
         private void ProcesarEstadoMaquina1()
         {
-            ProcesarEstadoMaquina(1);
+            ProcesarEstadoJuego(1);
         }
 
         private void ProcesarEstadoMaquina2()
         {
-            ProcesarEstadoMaquina(2);
+            ProcesarEstadoJuego(2);
         }
         private void ProcesarEstadoMaquina3()
         {
-            ProcesarEstadoMaquina(3);
+            ProcesarEstadoJuego(3);
         }
         private void ProcesarEstadoMaquina4()
         {
-            ProcesarEstadoMaquina(4);
+            ProcesarEstadoJuego(4);
         }
         private void ProcesarEstadoMaquina5()
         {
-            ProcesarEstadoMaquina(5);
+            ProcesarEstadoJuego(5);
         }
         private void ProcesarEstadoMaquina6()
         {
-            ProcesarEstadoMaquina(6);
+            ProcesarEstadoJuego(6);
         }
         private void ProcesarEstadoMaquina7()
         {
-            ProcesarEstadoMaquina(7);
+            ProcesarEstadoJuego(7);
         }
         private void ProcesarEstadoMaquina8()
         {
-            ProcesarEstadoMaquina(8);
+            ProcesarEstadoJuego(8);
         }
         private void ProcesarEstadoMaquina9()
         {
-            ProcesarEstadoMaquina(9);
+            ProcesarEstadoJuego(9);
         } 
         #endregion
 
 
-        private void ProcesarEstadoMaquina(int v)
+        private void ProcesarEstadoJuego(int v)
         {
             int jugador = Turno % 2 == 0 ? 1 : 2;
 
-            if (jugador == 1) // Humano
+            if (jugador == TipoJugador.Humano) // Humano
             {
                 if (estado[v] == 0)
                 {
@@ -140,7 +147,7 @@ namespace TresEnRaya.ViewModels
                     var c = estado.SequenceEqual(nodo.estado);
                     if (c)
                     {
-                        currentNodo = nodo.nodos.First();
+                        currentNodo = nodo.nodos.OrderBy(n=>n.valor).First();
                         estado = currentNodo.estado;
                         break;
                     }
@@ -167,7 +174,10 @@ namespace TresEnRaya.ViewModels
             C8Command = new DelegateCommand(ProcesarEstadoMaquina8);
             C9Command = new DelegateCommand(ProcesarEstadoMaquina9);
 
-            
+            NewCommand = new DelegateCommand(NuevaPartida);
+
+
+
             mainNodo.nivel = 0;
             currentNodo = mainNodo;
             Task.Run(() => CrearArbolJugadas(mainNodo));
@@ -175,6 +185,14 @@ namespace TresEnRaya.ViewModels
                         
         }
 
+        private void NuevaPartida()
+        {
+            Turno = 0;
+            currentNodo = mainNodo;
+            estado = new int[10] { -1, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+            AsignarCeldas(estado);
+        }
 
         private int CrearArbolJugadas(NodoJuego nodo)
         {
@@ -185,18 +203,25 @@ namespace TresEnRaya.ViewModels
             {
                 if (nodo.estado[celda] == 0)
                 {
-                                        
                     NodoJuego nodoHijo = new NodoJuego(nodo);
                     nodo.estado.CopyTo(nodoHijo.estado, 0);
                     nodoHijo.nivel = nodo.nivel + 1;
-                    int jugador = nodo.nivel % 2 == 0 ? 1 : 2;
+                    int jugador = nodo.nivel % 2 == 0 ? TipoJugador.Humano : TipoJugador.IA;
                     nodoHijo.estado[celda] = jugador;
                     int res = EvaluarEstado(nodoHijo.estado, jugador);
                     if (res == 3)
                     {
-                        //return 1;
+                        if (jugador == TipoJugador.Humano)
+                        {
+                            nodoHijo.valor = 1;
+                        }
+                        else
+                        {
+                            nodoHijo.valor = -1;
+                        }
+                        
                     }
-                    //AsignarCeldas(nodoHijo.estado);
+                    //nodo.valor += nodoHijo.valor;
                     nodo.nodos.Add(nodoHijo);
                     NumeroNodos++;
                    
@@ -207,7 +232,10 @@ namespace TresEnRaya.ViewModels
                 celda++;
 
             }
-            
+            if (nodo.nodoPadre != null)
+            {
+                nodo.nodoPadre.valor += nodo.nodos.Sum(n=>n.valor);
+            }
 
 
             return 0;
