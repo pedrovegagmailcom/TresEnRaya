@@ -197,6 +197,7 @@ namespace TresEnRaya.ViewModels
         {
             int nJugadasNivel = 9 - nodo.nivel;
             int celda = 1;
+            int jugador = nodo.nivel % 2 == 0 ? TipoJugador.Humano : TipoJugador.IA;
             //Thread.Sleep(500);
             while (nJugadasNivel > 0)
             {
@@ -205,7 +206,6 @@ namespace TresEnRaya.ViewModels
                     NodoJuego nodoHijo = new NodoJuego(nodo);
                     nodo.estado.CopyTo(nodoHijo.estado, 0);
                     nodoHijo.nivel = nodo.nivel + 1;
-                    int jugador = nodo.nivel % 2 == 0 ? TipoJugador.Humano : TipoJugador.IA;
                     nodoHijo.estado[celda] = jugador;
                     int res = EvaluarEstado(nodoHijo.estado, jugador);
                     if (res == 3)
@@ -220,7 +220,7 @@ namespace TresEnRaya.ViewModels
                         }
                         
                     }
-                    //nodo.valor += nodoHijo.valor;
+                    nodo.valor += nodoHijo.valor;
                     nodo.nodos.Add(nodoHijo);
                     NumeroNodos++;
                    
@@ -231,9 +231,16 @@ namespace TresEnRaya.ViewModels
                 celda++;
 
             }
-            if (nodo.nodoPadre != null)
+            if (nodo.nivel<9 && nodo.nodoPadre != null)
             {
-                nodo.nodoPadre.valor += nodo.nodos.Sum(n=>n.valor);
+                if (jugador == TipoJugador.Humano)
+                {
+                    nodo.nodoPadre.valor += nodo.nodos.Max(n=>n.valor);
+                }
+                else
+                {
+                    nodo.nodoPadre.valor += nodo.nodos.Min(n => n.valor);
+                }
             }
 
 
