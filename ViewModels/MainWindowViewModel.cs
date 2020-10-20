@@ -148,7 +148,7 @@ namespace TresEnRaya.ViewModels
                     if (c)
                     {
                         currentNodo = nodo.nodos.OrderBy(n=>n.valor).First();
-                        estado = currentNodo.estado;
+                        currentNodo.estado.CopyTo(estado, 0);
                         break;
                     }
                 }
@@ -179,8 +179,7 @@ namespace TresEnRaya.ViewModels
 
 
             mainNodo.nivel = 0;
-            currentNodo = mainNodo;
-            Task.Run(() => CrearArbolJugadas(mainNodo));
+            Task.Run(() => CrearArbolJugadas(mainNodo)).ContinueWith(c=> currentNodo = mainNodo);
             
                         
         }
